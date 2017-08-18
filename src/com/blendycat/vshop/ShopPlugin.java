@@ -40,14 +40,14 @@ public class ShopPlugin extends JavaPlugin {
     }
 
     private void setUpConfig(FileConfiguration config){
-        config.addDefault("db_host", null);
-        config.addDefault("db_port", null);
-        config.addDefault("db_name", null);
-        config.addDefault("db_user", null);
-        config.addDefault("db_password", null);
+        config.addDefault("db_host", "");
+        config.addDefault("db_port", "");
+        config.addDefault("db_name", "");
+        config.addDefault("db_user", "");
+        config.addDefault("db_password", "");
         config.options().copyDefaults(true);
-        saveDefaultConfig();
         saveConfig();
+        saveDefaultConfig();
     }
 
     /**
