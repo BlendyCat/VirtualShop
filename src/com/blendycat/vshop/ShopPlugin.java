@@ -61,7 +61,7 @@ public class ShopPlugin extends JavaPlugin {
         //
         if(!config.isSet("db_host") ||
                 !config.isSet("db_port") ||
-                !config.isSet("db_username") ||
+                !config.isSet("db_user") ||
                 !config.isSet("db_password") ||
                 !config.isSet("db_name")) {
             getLogger().info("Database login information " +
@@ -70,7 +70,7 @@ public class ShopPlugin extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
         }
         //put username and password in connectionProperties
-        connectionProperties.put("user", config.getString("db_username"));
+        connectionProperties.put("user", config.getString("db_user"));
         connectionProperties.put("password", config.getString("db_password"));
 
         String connectionURL = "jdbc:mysql://"+config.getString("db_host")+

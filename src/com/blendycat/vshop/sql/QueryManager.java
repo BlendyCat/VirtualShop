@@ -22,12 +22,12 @@ public class QueryManager {
             CallableStatement stmt = conn.prepareCall(
                     "CREATE TABLE IF NOT EXISTS `blendy_shop` (" +
                             "`ID` INT NOT NULL AUTO_INCREMENT," +
-                            "`UUID`, VARCHAR(255) NOT NULL," +
+                            "`UUID` VARCHAR(255) NOT NULL," +
                             "`Material` VARCHAR(255) NOT NULL," +
-                            "`Meta` INT NOT NULL DEFAULT '0'," +
+                            "`Meta` INT NOT NULL," +
                             "`Price` DECIMAL(6,2) NOT NULL," +
                             "`Amount` INT NOT NULL," +
-                            "PRIMARY KEY(ID));");
+                            "PRIMARY KEY(`ID`));");
             stmt.execute();
         }catch(SQLException ex){
             ex.printStackTrace();
