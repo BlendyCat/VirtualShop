@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="VirtualShop">
+    <output-path>$PROJECT_DIR$/../../BT/plugins</output-path>
+    <root id="archive" name="VirtualShop.jar">
+      <element id="module-output" name="VShop" />
+      <element id="file-copy" path="$PROJECT_DIR$/../VirtualStorage/plugin.yml" />
+    </root>
+  </artifact>
+</component>

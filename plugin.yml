@@ -1,0 +1,9 @@
+name: VirtualShop
+main: com.blendycat.vshop.ShopPlugin
+version: 1.0
+author: BlendyCat
+depend: [Vault]
+commands:
+  sell:
+    description: sell item in hand
+    usage: /<command> <price>
