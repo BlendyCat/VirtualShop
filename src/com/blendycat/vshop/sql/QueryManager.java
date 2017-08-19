@@ -1,6 +1,5 @@
 package com.blendycat.vshop.sql;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -47,37 +46,39 @@ public class QueryManager {
             PreparedStatement stmt = conn.prepareStatement(
                     "SELECT ID, Amount FROM blendy_shop WHERE Material = ? AND " +
                     "Meta = ? AND UUID = ?;");
-            stmt.setString(0, material.toString());
-            stmt.setInt(1, meta);
-            stmt.setString(2, seller.getUniqueId().toString());
+            stmt.setString(1, material.toString());
+            stmt.setInt(2, meta);
+            stmt.setString(3, seller.getUniqueId().toString());
             stmt.execute();
             ResultSet result = stmt.getResultSet();
             result.last();
-            seller.sendMessage(ChatColor.AQUA + "There are " + result.getRow() + " rows!");
             if(result.getRow() >= 1) {
                 //adds amount to previous row
-                int id = result.getInt(0);
-                int oldAmount = result.getInt(1);
+                int id = result.getInt(1);
+                int oldAmount = result.getInt(2);
                 stmt = conn.prepareStatement(
-                        "UPDATE blendy_shop" +
-                                "SET Amount = ? WHERE " +
-                                "Material = ? AND" +
-                                "Meta = ? AND" +
-                                "UUID = ?;");
-                stmt.setInt(0, oldAmount+amount);
-                stmt.setString(1, material.toString());
-                stmt.setInt(2, meta);
-                stmt.setString(3, seller.getUniqueId().toString());
+                        "UPDATE blendy_shop " +
+                                "SET Amount=?, Price=? WHERE " +
+                                "Material=? AND " +
+                                "Meta=? AND " +
+                                "UUID=?;");
+                stmt.setInt(1, oldAmount+amount);
+                stmt.setDouble(2, price);
+                stmt.setString(3, material.toString());
+                stmt.setInt(4, meta);
+                stmt.setString(5, seller.getUniqueId().toString());
+                stmt.execute();
             }else {
                 //adds as new row to table
                 stmt = conn.prepareStatement(
                         "INSERT INTO blendy_shop(`UUID`, `Material`, `Meta`, `Price`, `Amount`) " +
                                 "VALUES(?, ?, ?, ?, ?);");
-                stmt.setString(0, seller.getUniqueId().toString());
-                stmt.setString(1, material.toString());
-                stmt.setInt(2, meta);
-                stmt.setDouble(3, price);
-                stmt.setInt(4, amount);
+                stmt.setString(1, seller.getUniqueId().toString());
+                stmt.setString(2, material.toString());
+                stmt.setInt(3, meta);
+                stmt.setDouble(4, price);
+                stmt.setInt(5, amount);
+                stmt.execute();
             }
         }catch(SQLException ex){
             ex.printStackTrace();
